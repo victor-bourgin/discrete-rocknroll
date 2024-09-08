@@ -42,15 +42,14 @@ def aerodynamic_forces(radius: float,
 def rate_binned(distrib: Distribution,
                 flow: Flow,
                 dt: float,
-                threshold: float = 1e-3
-                ) -> NDArray[np.float64]:
+                ) -> NDArray[np.int_]:
     """
     Wrapper for resuspension_rate. Handles denormalization of adhesion forces.
 
     Returns the average number of resuspension events expected to happen in each bin over time dt.
     """
     # De-normalize adhesion force
-    fadh = denormalize_adhesion(distrib.centers, distrib.radius*1e-6, flow.surf_energy)
+    fadh = denormalize_adhesion(distrib.center, distrib.radius*1e-6, flow.surf_energy)
 
     # Compute the resuspension rate for each bin
     rate = resuspension_rate(fadh,
@@ -62,7 +61,7 @@ def rate_binned(distrib: Distribution,
     rate = rate * distrib.count * dt
 
     # If the rate is below the threshold, set to 0
-    rate = np.where(rate < threshold, 0, rate)
+    rate = np.round(rate).astype(int)
 
     return rate
 
