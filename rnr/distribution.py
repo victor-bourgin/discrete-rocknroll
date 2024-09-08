@@ -3,7 +3,9 @@ import numpy as np
 from time import time
 
 from scipy.integrate import quad
+
 from typing import Callable, Optional
+from numpy.typing import NDArray
 
 from .config import setup_logging
 from .utils import biasi_params
@@ -13,26 +15,33 @@ from .utils import biasi_params
 
 
 class Distribution:
-    def __init__(self, radius, count, centers, edges, width):
+    def __init__(self,
+                 radius: float,
+                 count: NDArray[np.int_],
+                 center: NDArray[np.float64],
+                 edge: NDArray[np.float64],
+                 width: NDArray[np.float64],
+                 ) -> None:
+
         self.radius = radius
         self.count = count
-        self.centers = centers
-        self.edges = edges
+        self.center = center
+        self.edge = edge
         self.width = width
 
     @property
-    def partnumber(self):
+    def partnumber(self,):
         return np.sum(self.count)
 
     @property
-    def mean(self):
-        return np.sum(self.centers * self.count) / self.partnumber
+    def mean(self,) -> float:
+        return np.sum(self.center * self.count) / self.partnumber
 
     def plot(self, scale: str) -> None:
         # Clear figure
         plt.clf()
 
-        plt.bar(self.centers, self.count, width=self.width, )
+        plt.bar(self.center, self.count, width=self.width, )
 
         plt.yscale(scale)
 
