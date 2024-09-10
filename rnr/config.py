@@ -7,11 +7,11 @@ def setup_logging(name, log_file):
     logger.setLevel(logging.DEBUG)
 
     # Create handlers
-    file_handler = logging.FileHandler(log_file, mode='w')
+    file_handler = logging.FileHandler(log_file, mode='a')
     console_handler = logging.StreamHandler()
 
     file_handler.setLevel(logging.DEBUG)
-    console_handler.setLevel(logging.INFO)
+    console_handler.setLevel(logging.DEBUG)
 
     # Add handlers to logger
     logger.addHandler(file_handler)
