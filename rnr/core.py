@@ -13,25 +13,14 @@ def single_run():
     with open("config.toml", "r") as f:
         config = toml.load(f)
 
-    # DISTRIBUTION PARAMETERS
-    nparts = int(config["distribution"]["nparts"])
-    radius = config["distribution"]["radius"]
-    nbins = config["distribution"]["nbins"]
-    fmin = config["distribution"]["fmin"]
-    fmax = config["distribution"]["fmax"]
-
-    # FLOW PARAMETERS
-    friction_vel = config["flow"]["friction_vel"]
-    fluid_density = config["flow"]["fluid_density"]
-    kin_visco = config["flow"]["kin_visco"]
-    surf_energy = config["flow"]["surf_energy"]
-
-    # SIMULATION PARAMETERS
-    duration = config["simulation"]["duration"]
-    dt = config["simulation"]["dt"]
-
     # Initialize adhesion distribution
-    builder = DistributionBuilder(radius, nparts, nbins, fmin, fmax)
+    builder = DistributionBuilder(config["distribution"]["radius"],
+                                  int(config["distribution"]["nparts"]),
+                                  config["distribution"]["nbins"],
+                                  config["distribution"]["fmin"],
+                                  config["distribution"]["fmax"],
+                                  )
+
     distrib = builder.generate()
 
     # Plot initial distribution
@@ -39,11 +28,17 @@ def single_run():
     plt.savefig("./figs/initial_distrib.pdf", dpi=300)
 
     # Initialize the flow
-    flow = Flow(friction_vel, fluid_density, kin_visco, surf_energy)
+    flow = Flow(config["flow"]["friction_vel"],
+                config["flow"]["fluid_density"],
+                config["flow"]["kin_visco"],
+                config["flow"]["surf_energy"],
+                )
 
     # Instanciate simulation and run it
     sim = Simulation(distrib, flow)
-    time, total_parts, instant_rate = sim.run(duration, dt)
+    time, total_parts, instant_rate = sim.run(config["simulation"]["duration"],
+                                              config["simulation"]["dt"],
+                                              )
 
 
 def validation():
