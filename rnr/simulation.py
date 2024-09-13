@@ -1,3 +1,4 @@
+import copy
 import numpy as np
 from time import time
 
@@ -18,8 +19,11 @@ class Simulation:
                  distribution: Distribution,
                  flow: Flow,
                  ) -> None:
-
-        self.distribution = distribution
+        """
+        Instanciates a simulation object. A deep copy of the distribution is used as to not modify the original object.
+        It is necessary to make a deep copy, as the distribution class contains nested mutables (arrays).
+        """
+        self.distribution = copy.deepcopy(distribution)
         self.flow = flow
         self.current_time = 0
 
