@@ -1,0 +1,16 @@
+[distribution]
+nparts = 1e9
+radius = 5
+nbins = 1000
+fmin = 0.0
+fmax = 0.1
+
+[flow]
+friction_vel = 0.5
+fluid_density = 1.204
+kin_visco = 1.48e-5
+surf_energy = 0.15
+
+[simulation]
+duration = 1e2
+dt = 1e0
