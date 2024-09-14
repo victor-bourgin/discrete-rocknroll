@@ -1,11 +1,9 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import toml
 
 from rnr.distribution import DistributionBuilder
 from rnr.flow import Flow
 from rnr.simulation import Simulation
-from rnr.utils import read_exp_res
 
 # TODO: Add plotting functionnalities
 
