@@ -5,7 +5,7 @@ import toml
 from rnr.distribution import DistributionBuilder
 from rnr.flow import Flow
 from rnr.simulation import Simulation
-from rnr.utils import read_exp_res
+from rnr.utils import read_exp_data
 
 
 def main():
@@ -18,8 +18,7 @@ def main():
     fr = np.zeros([2, len(velocities)])
 
     # Read experimental data
-    alumina10run10 = read_exp_res("data/alumina10_run10.csv")
-    alumina20run8 = read_exp_res("data/alumina20_run8.csv")
+    exp_data = read_exp_data()
 
     for (i, radius) in enumerate([5, 10]):
 
@@ -57,9 +56,14 @@ def main():
 
     # Draw plots
     ax1.plot(velocities, fr[0]/(config["distribution"]["nparts"]+0), color='red',)
-    ax1.scatter(alumina10run10[0], alumina10run10[1], color='black', marker='s', facecolors='none', label='Exp. run 10')
+    ax1.scatter(exp_data[10][9][0], exp_data[10][9][1], color='blue', marker='^', facecolors='none', label='Exp. run 9')
+    ax1.scatter(exp_data[10][10][0], exp_data[10][10][1], color='black', marker='s', facecolors='none', label='Exp. run 10')
+    ax1.scatter(exp_data[10][15][0], exp_data[10][15][1], color='red', marker='o', facecolors='none', label='Exp. run 15')
+
     ax2.plot(velocities, fr[1]/(config["distribution"]["nparts"]+0), color='red', label='Discretized RnR')
-    ax2.scatter(alumina20run8[0], alumina20run8[1], color='black', marker='s', facecolors='none', label='Exp. run 8')
+    ax2.scatter(exp_data[20][7][0], exp_data[20][7][1], color='blue', marker='^', facecolors='none', label='Exp. run 7')
+    ax2.scatter(exp_data[20][8][0], exp_data[20][8][1], color='black', marker='s', facecolors='none', label='Exp. run 7')
+    ax2.scatter(exp_data[20][20][0], exp_data[20][20][1], color='red', marker='o', facecolors='none', label='Exp. run 20')
 
     # Set limits
     for ax in (ax1, ax2):
