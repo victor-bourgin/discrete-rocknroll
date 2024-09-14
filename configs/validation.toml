@@ -1,0 +1,14 @@
+# These are the parameters to recreate the validation experiment by Reeks and Hall (2001)
+# Alumina spheres of diameters 10µm are considered here.
+
+[distribution]
+nparts = 1e9
+nbins = 1000
+fmin = 0.0
+fmax = 0.1
+
+[flow]
+# The fluid is helium at temperature 748K and a pressure of 3 MPa
+fluid_density = 1.92
+kin_visco = 1.96e-5
+surf_energy = 0.56

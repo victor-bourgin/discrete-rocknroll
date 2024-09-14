@@ -22,7 +22,6 @@ class Distribution:
                  edge: NDArray[np.float64],
                  width: NDArray[np.float64],
                  ) -> None:
-
         self.radius = radius
         self.count = count
         self.center = center
@@ -30,11 +29,11 @@ class Distribution:
         self.width = width
 
     @property
-    def partnumber(self,):
+    def partnumber(self, ):
         return np.sum(self.count)
 
     @property
-    def mean(self,) -> float:
+    def mean(self, ) -> float:
         return np.sum(self.center * self.count) / self.partnumber
 
     def plot(self, scale: str) -> None:
@@ -91,7 +90,8 @@ class DistributionBuilder:
         Return a Distribution object.
         """
         # Create bin edges, widths and centers
-        edge = np.linspace(self.fmin, self.fmax, self.nbins+1)
+        edge = np.linspace(self.fmin, self.fmax, self.nbins + 1)
+
         width = edge[1:] - edge[:-1]
         center = np.mean([edge[:-1], edge[1:]], axis=0)
 
@@ -111,6 +111,7 @@ class DistributionBuilder:
         distrib = Distribution(self.radius, count, center, edge, width)
 
         self._logger.info(f"Distribution generated in {time() - tstart:.2f} seconds.")
-        self._logger.debug(f"Distrib stats: {distrib.partnumber} parts, {np.shape(distrib.count)[0]} bins, mean = {distrib.mean:.4f}")
+        self._logger.debug(
+            f"Distrib stats: {distrib.partnumber} parts, {np.shape(distrib.count)[0]} bins, mean = {distrib.mean:.4f}")
 
         return distrib

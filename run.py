@@ -1,16 +1,18 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import toml
 
 from rnr.distribution import DistributionBuilder
 from rnr.flow import Flow
 from rnr.simulation import Simulation
+from rnr.utils import read_exp_res
 
 # TODO: Add plotting functionnalities
 
 
-def single_run():
+def main():
     # Load config file
-    with open("config.toml", "r") as f:
+    with open("configs/config.toml", "r") as f:
         config = toml.load(f)
 
     # Initialize adhesion distribution
@@ -22,7 +24,6 @@ def single_run():
                                   )
 
     distrib = builder.generate()
-
     # Plot initial distribution
     distrib.plot(scale='log')
     plt.savefig("./figs/initial_distrib.pdf", dpi=300)
@@ -41,5 +42,5 @@ def single_run():
                                               )
 
 
-def validation():
-    pass
+if __name__ == "__main__":
+    main()

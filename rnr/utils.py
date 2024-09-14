@@ -1,3 +1,4 @@
+import csv
 import numpy as np
 
 
@@ -17,3 +18,17 @@ def normalize_adhesion(fadh_norm, radius, surf_energy):
 
 def denormalize_adhesion(fadh_norm, radius, surf_energy):
     return fadh_norm * (3 / 2) * np.pi * surf_energy * radius
+
+
+def read_exp_res(file_path: str) -> list:
+    with open(file_path, mode='r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip the header row
+
+        res = [[], []]
+
+        for row in reader:
+            res[0].append(float(row[0]))  # Assuming the data is numeric
+            res[1].append(float(row[1]))
+
+    return res
