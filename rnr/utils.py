@@ -1,6 +1,8 @@
 import csv
+import os
+import re
+
 import numpy as np
-import os, re
 
 
 def rplus(radius, friction_vel, kin_visco):
