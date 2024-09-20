@@ -14,9 +14,9 @@ Using conda:
 
 `conda create --name <env_name> --file requirements.txt`
 
-Once that is done, you can set your parameters in the configs/config.toml file. The simulation is ran in the main.py file :
+Once that is done, you can set your parameters in the configs/config.toml file. The simulation is ran in the run.py file :
 
-`python3 main.py`
+`python3 run.py`
 
 # Upcoming features
 - User-defined adhesion distribution
