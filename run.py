@@ -3,9 +3,8 @@ import toml
 
 from rnr.distribution import DistributionBuilder
 from rnr.flow import Flow
+from rnr.plotting import plot_instant_rate, plot_remaining_fraction
 from rnr.simulation import Simulation
-
-# TODO: Add plotting functionnalities
 
 
 def main():
@@ -38,6 +37,15 @@ def main():
     time, total_parts, instant_rate = sim.run(config["simulation"]["duration"],
                                               config["simulation"]["dt"],
                                               )
+    # Plot output
+    plt.clf()
+    plot_instant_rate(time, instant_rate)
+    plt.savefig("figs/instant_rate.pdf", dpi=300)
+
+    plt.clf()
+    plot_remaining_fraction(time, total_parts)
+    plt.savefig("figs/remaining_fraction.pdf", dpi=300)
+
 
 
 if __name__ == "__main__":
