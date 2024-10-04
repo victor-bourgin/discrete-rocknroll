@@ -24,6 +24,11 @@ Once that is done, you can set your parameters in the configs/config.toml file. 
 - Variable friction velocity
 - More convenient plotting functions
 
+### Contact me
+Personal : victor.bourgin1@gmail.com
+
+Temporary : victor.bourgin@etu-upsaclay.fr
+
 # Reference
 [1] M.W. Reeks, D. Hall,
 Kinetic models for particle resuspension in turbulent flows: theory and measurement,
