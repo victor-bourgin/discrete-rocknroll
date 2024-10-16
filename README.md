@@ -25,9 +25,7 @@ Once that is done, you can set your parameters in the configs/config.toml file. 
 - More convenient plotting functions
 
 ### Contact me
-Personal : victor.bourgin1@gmail.com
-
-Temporary : victor.bourgin@etu-upsaclay.fr
+victor.bourgin@universite-paris-saclay.fr
 
 # Reference
 [1] M.W. Reeks, D. Hall,
