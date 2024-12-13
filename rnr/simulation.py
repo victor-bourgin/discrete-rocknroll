@@ -27,12 +27,12 @@ class Simulation:
         self.flow = flow
         self.current_time = 0
 
-    def run(self, duration: float, dt: float,) -> Tuple[NDArray, NDArray, NDArray]:
+    def run(self,) -> Tuple[NDArray, NDArray, NDArray]:
         """
         Advances the simulation by the given time, starting from the current simulation time.
         """
         # Initialize arrays
-        time_array = np.arange(self.current_time, duration, dt)
+        time_array = self.flow.time
         nsteps = len(time_array)
 
         # Output quantities
@@ -43,7 +43,7 @@ class Simulation:
         tstart = time()
 
         for i in range(nsteps):
-            change = rate_binned(self.distribution, self.flow, dt)
+            change = rate_binned(self.distribution, self.flow, i)
             change = np.where(change > self.distribution.count, self.distribution.count, change)
 
             total_parts[i] = self.distribution.partnumber

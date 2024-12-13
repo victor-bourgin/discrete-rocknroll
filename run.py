@@ -26,7 +26,11 @@ def main():
     plt.savefig("./figs/initial_distrib.pdf", dpi=300)
 
     # Initialize the flow
-    flow = Flow(config["flow"]["friction_vel"],
+    flow = Flow(
+                config["simulation"]["duration"],
+                config["simulation"]["dt"],
+                config["flow"]["spinup_time"],
+                config["flow"]["friction_vel"],
                 config["flow"]["fluid_density"],
                 config["flow"]["kin_visco"],
                 config["flow"]["surf_energy"],
@@ -34,9 +38,7 @@ def main():
 
     # Instanciate simulation and run it
     sim = Simulation(distrib, flow)
-    time, total_parts, instant_rate = sim.run(config["simulation"]["duration"],
-                                              config["simulation"]["dt"],
-                                              )
+    time, total_parts, instant_rate = sim.run()
     # Plot output
     plt.clf()
     plot_instant_rate(time, instant_rate)

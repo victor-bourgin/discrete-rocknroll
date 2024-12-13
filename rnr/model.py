@@ -41,7 +41,7 @@ def aerodynamic_forces(radius: float,
 
 def rate_binned(distrib: Distribution,
                 flow: Flow,
-                dt: float,
+                step: int,
                 ) -> NDArray[np.int_]:
     """
     Wrapper for resuspension_rate. Handles denormalization of adhesion forces.
@@ -54,11 +54,11 @@ def rate_binned(distrib: Distribution,
     # Compute the resuspension rate for each bin
     rate = resuspension_rate(fadh,
                              distrib.radius*1e-6,
-                             flow.friction_vel,
+                             flow.friction_vel[step],
                              flow.fluid_density,
                              flow.kin_visco,
                              )
-    rate = rate * distrib.count * dt
+    rate = rate * distrib.count * flow.dt
 
     # If the rate is below the threshold, set to 0
     rate = np.round(rate).astype(int)
