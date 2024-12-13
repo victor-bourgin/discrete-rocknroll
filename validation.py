@@ -14,7 +14,7 @@ def main():
         config = toml.load(f)
 
     # Initialize velocity and remaining fraction arrays
-    velocities = np.arange(0.1, 10, 0.01)
+    velocities = np.arange(0.1, 10.0, 0.01)
     fr = np.zeros([2, len(velocities)])
 
     # Read experimental data
@@ -34,7 +34,11 @@ def main():
 
         for (j, vel) in enumerate(velocities):
             # Initialize the flow
-            flow = Flow(vel,
+            flow = Flow(
+                        1e1,
+                        1e0,
+                        0.0,
+                        vel,
                         config["flow"]["fluid_density"],
                         config["flow"]["kin_visco"],
                         config["flow"]["surf_energy"],
@@ -42,9 +46,7 @@ def main():
 
             # Instanciate simulation and run it
             sim = Simulation(distrib, flow)
-            _, total_parts, _ = sim.run(duration=1e0,
-                                        dt=1e-1,
-                                        )
+            _, total_parts, _ = sim.run()
             fr[i, j] = total_parts[-1]
 
     # Plot results
@@ -86,6 +88,17 @@ def main():
     ax1.set_ylabel('remaining fraction')
 
     plt.savefig("figs/validation.pdf", dpi=300)
+
+    # Integral for convergence study
+    area1 = np.sum(fr[0]/(config["distribution"]["nparts"])*0.01)
+    area2 = np.sum(fr[1]/(config["distribution"]["nparts"])*0.01)
+
+    print(area1, area2)
+
+    smoothness1 = np.sum(np.abs(fr[0,2:-1]-2*fr[0,1:-2]+fr[0,0:-3])/config["distribution"]["nparts"])
+    smoothness2 = np.sum(np.abs(fr[1,2:-1]-2*fr[1,1:-2]+fr[1,0:-3])/config["distribution"]["nparts"])
+
+    print(smoothness1*1000, smoothness2*1000)
 
 
 if __name__ == "__main__":
