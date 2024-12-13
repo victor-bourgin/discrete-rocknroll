@@ -1,3 +1,5 @@
+import sys
+
 import matplotlib.pyplot as plt
 import toml
 
@@ -9,7 +11,7 @@ from rnr.simulation import Simulation
 
 def main():
     # Load config file
-    with open("configs/config.toml", "r") as f:
+    with open(f"configs/{sys.argv[1]}.toml", "r") as f:
         config = toml.load(f)
 
     # Initialize adhesion distribution
